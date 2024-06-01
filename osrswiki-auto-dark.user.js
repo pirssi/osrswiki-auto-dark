@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        OSRS Wiki Auto Dark Mode
 // @description Automatic Dark Mode switcher for Old School Runescape Wiki
-// @version     1
+// @version     1.1
 // @author      pirssi
 // @namespace   https://pirss.in
 // @match       *://oldschool.runescape.wiki/*
