@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        OSRS Wiki Auto Dark Mode
 // @description Automatic Dark Mode switcher for Old School Runescape Wiki
-// @version     1.1
+// @version     3
 // @author      pirssi
 // @namespace   https://pirss.in
 // @match       *://oldschool.runescape.wiki/*
@@ -59,20 +59,25 @@ function setTheme() {
     if (useDarkMode && USE_BROWNTOWN) {
       // brown
       document.body.classList.remove("wgl-lightmode");
-      document.body.classList.remove("wgl-theme-light");
       document.body.classList.remove("wgl-darkmode");
+      document.body.classList.remove("wgl-theme-light");
       document.body.classList.remove("wgl-theme-dark");
+      document.body.classList.remove("wgl-theme-browntown");
       document.body.classList.add("wgl-theme-browntown");
     } else if (useDarkMode && !USE_BROWNTOWN) {
       // dark
       document.body.classList.remove("wgl-lightmode");
+      document.body.classList.remove("wgl-darkmode");
       document.body.classList.remove("wgl-theme-light");
+      document.body.classList.remove("wgl-theme-dark");
       document.body.classList.remove("wgl-theme-browntown");
       document.body.classList.add("wgl-darkmode");
       document.body.classList.add("wgl-theme-dark");
     } else {
       // light
+      document.body.classList.remove("wgl-lightmode");
       document.body.classList.remove("wgl-darkmode");
+      document.body.classList.remove("wgl-theme-light");
       document.body.classList.remove("wgl-theme-dark");
       document.body.classList.remove("wgl-theme-browntown");
       document.body.classList.add("wgl-lightmode");
@@ -82,7 +87,20 @@ function setTheme() {
 }
 
 // set initial theme on load
-setTheme();
+window.onload = (event) => {
+  // load stylesheets for both the themes
+  const darkLink = document.createElement("link");
+  darkLink.rel = "stylesheet";
+  darkLink.href = "/load.php?lang=en-gb&modules=wgl.theme.dark&only=styles&skin=vector";
+  document.head.appendChild(darkLink);
+
+  const brownLink = document.createElement("link");
+  brownLink.rel = "stylesheet";
+  brownLink.href = "/load.php?lang=en-gb&modules=wgl.theme.browntown&only=styles&skin=vector";
+  document.head.appendChild(brownLink);
+
+  setTheme();
+};
 
 // update theme once a minute
 setInterval(setTheme, 60000);
